@@ -1,6 +1,6 @@
 
 NAME = nimishell
-SRCS = src/main.c src/lexer.c src/parser.c src/exec.c src/builtins.c src/env.c src/utils.c
+SRCS = 
 OBJS = $(SRCS:.c=.o)
 
 CC = cc

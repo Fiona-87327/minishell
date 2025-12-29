@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2025/12/17 21:08:21 by jiyawang         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:11:32 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,18 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <errno.h>
+# include <limits.h>
+# include <stdbool.h>
 
-typedef struct s_cmd
+typedef struct s_checker
 {
-	char			**args;
-	int				fd_in;
-	int				fd_out;
-	struct s_cmd	*next;
-}					t_cmd;
+	
+}				t_checker;
 
-typedef struct s_program
+typedef struct s_command
 {
-	char			**env;
-	int				exit_status;
-}					t_program;
-
+	char				**args;
+	struct s_command	*next;
+}				t_command;
 #endif
