@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/07 15:38:30 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/07 16:41:06 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_command
 typedef struct s_minishell
 {
 	char				**env;
+	int					exit_status;
 }						t_minishell;
 
 void					mis_cd(t_command *cmd, t_minishell *shell);

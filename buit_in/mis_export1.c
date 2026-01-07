@@ -6,52 +6,69 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 15:36:10 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/07 15:38:22 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/07 16:21:35 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	update_existing_env(char **env, char *name, char *va_arg)
+{
+	int	i;
+	int	len;
+
+	len = ft_strlen(name);
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], name, len) == 0 && (env[i][len] == '='
+			|| env[i][len] == '\0'))
+		{
+			if (ft_strchr(va_arg, '='))
+			{
+				free(env[i]);
+				env[i] = ft_strdup(va_arg);
+			}
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+static char	**append_env_row(char **old_env, char *va_arg)
+{
+	int		i;
+	char	**new_env;
+
+	i = 0;
+	while (old_env[i])
+		i++;
+	new_env = malloc(sizeof(char *) * (i + 2));
+	if (!new_env)
+		return (NULL);
+	i = 0;
+	while (old_env[i])
+	{
+		new_env[i] = old_env[i];
+		i++;
+	}
+	new_env[i] = ft_strdup(va_arg);
+	new_env[i + 1] = NULL;
+	free(old_env);
+	return (new_env);
+}
+
 void	add_to_env(t_minishell *shell, char *arg)
 {
 	char	*name;
-	int		i;
-	int		len;
-	char	**new_env;
 
 	name = get_var_name(arg);
 	if (!name)
 		return ;
-	len = ft_strlen(name);
-	i = 0;
-	while (shell->env[i])
+	if (!update_existing_env(shell->env, name, arg))
 	{
-		if (ft_strncmp(shell->env[i], name, len) == 0
-			&& (shell->env[i][len] == '=' || shell->env[i][len] == '\0'))
-		{
-			if (ft_strchr(arg, '='))
-			{
-				free(shell->env[i]);
-				shell->env[i] = ft_strdup(arg);
-			}
-			free(name);
-			return ;
-		}
-		i++;
+		shell->env = append_env_row(shell->env, arg);
 	}
 	free(name);
-	i = ft_arraylen(shell->env);
-	new_env = malloc(sizeof(char *) * (i + 2));
-	if (!new_env)
-		return ;
-	i = 0;
-	while (shell->env[i])
-	{
-		new_env[i] = shell->env[i];
-		i++;
-	}
-	new_env[i] = ft_strdup(arg);
-	new_env[i + 1] = NULL;
-	free(shell->env);
-	shell->env = new_env;
 }
