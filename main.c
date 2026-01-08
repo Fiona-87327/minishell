@@ -6,11 +6,13 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:12 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/07 16:41:38 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/08 12:06:08 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+volatile sig_atomic_t	g_signal = 0;
 
 void	execute_command(t_command *cmd, t_minishell *shell)
 {
@@ -83,6 +85,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
+	rl_event_hook = check_signal_event;
 	shell.env = dup_env(envp);
 	shell.exit_status = 0;
 	while (1)
@@ -90,7 +93,7 @@ int	main(int ac, char **av, char **envp)
 		input = readline("minishell$ ");
 		if (!input)
 		{
-			printf("exit\n");
+			write(1, "exit\n", 5);
 			break ;
 		}
 		handle_input(input, &shell);

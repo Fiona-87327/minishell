@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 19:54:41 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/05 19:54:53 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/08 11:33:51 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	mis_exit(t_command *cmd, t_minishell *shell)
 
 	(void)shell;
 	if (cmd->args[1] == NULL)
-	{
 		exit_code = 0;
-	}
 	else
 	{
 		exit_code = ft_atoi(cmd->args[1]);

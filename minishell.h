@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/07 16:41:06 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/08 12:03:48 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,37 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+extern volatile sig_atomic_t	g_signal;
+
 typedef struct s_checker
 {
-}						t_checker;
+}								t_checker;
 
 typedef struct s_command
 {
-	char				**args;
-	struct s_command	*next;
-}						t_command;
+	char						**args;
+	struct s_command			*next;
+}								t_command;
 
 typedef struct s_minishell
 {
-	char				**env;
-	int					exit_status;
-}						t_minishell;
+	char						**env;
+	int							exit_status;
+}								t_minishell;
 
-void					mis_cd(t_command *cmd, t_minishell *shell);
-void					mis_echo(t_command *cmd, t_minishell *shell);
-void					mis_exit(t_command *cmd, t_minishell *shell);
-void					mis_pwd(t_command *cmd, t_minishell *shell);
-void					mis_env(t_command *cmd, t_minishell *shell);
-void					mis_export(t_command *cmd, t_minishell *shell);
-void					mis_unset(t_command *cmd, t_minishell *shell);
-void					mis_exec(t_command *cmd, t_minishell *shell);
-void					signal_handler(int sig);
-int						ft_arraylen(char **array);
-void					ft_free_array(char **array);
-char					*get_var_name(char *arg);
-void					add_to_env(t_minishell *shell, char *arg);
+void							mis_cd(t_command *cmd, t_minishell *shell);
+void							mis_echo(t_command *cmd, t_minishell *shell);
+void							mis_exit(t_command *cmd, t_minishell *shell);
+void							mis_pwd(t_command *cmd, t_minishell *shell);
+void							mis_env(t_command *cmd, t_minishell *shell);
+void							mis_export(t_command *cmd, t_minishell *shell);
+void							mis_unset(t_command *cmd, t_minishell *shell);
+void							mis_exec(t_command *cmd, t_minishell *shell);
+void							signal_handler(int sig);
+int								check_signal_event(void);
+int								ft_arraylen(char **array);
+void							ft_free_array(char **array);
+char							*get_var_name(char *arg);
+void							add_to_env(t_minishell *shell, char *arg);
 
 #endif
