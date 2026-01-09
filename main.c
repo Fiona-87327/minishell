@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:12 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/09 16:46:46 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/09 20:04:03 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,6 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		input = readline("minishell$ ");
-		if (!input)
-		{
-			write(1, "exit\n", 5);
-			break ;
-		}
 		handle_input(input, &shell);
 		free(input);
 	}
