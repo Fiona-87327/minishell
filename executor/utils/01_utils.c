@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mis_export1.c                                      :+:      :+:    :+:   */
+/*   01_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 15:36:10 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/09 12:10:58 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/09 15:04:34 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,20 @@ void	add_to_env(t_minishell *shell, char *arg)
 		shell->env = append_env_row(shell->env, arg);
 	}
 	free(name);
+}
+
+char	*get_env_value(char **env, char *key)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(key);
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], key, len) == 0 && env[i][len] == '=')
+			return (env[i] + len + 1);
+		i++;
+	}
+	return (NULL);
 }

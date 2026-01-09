@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/08 12:03:48 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/09 15:03:49 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int								check_signal_event(void);
 int								ft_arraylen(char **array);
 void							ft_free_array(char **array);
 char							*get_var_name(char *arg);
+char							*get_env_value(char **env, char *key);
 void							add_to_env(t_minishell *shell, char *arg);
 
 #endif

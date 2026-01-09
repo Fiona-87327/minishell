@@ -8,16 +8,16 @@ LDFLAGS = -lreadline
 
 MAKEFLAGS += --no-print-directory
 
-SRCS = buit_in/mis_cd.c \
-	   buit_in/mis_echo.c \
-	   buit_in/mis_env.c \
-	   buit_in/mis_exit.c \
-	   buit_in/mis_export.c \
-	   buit_in/mis_pwd.c \
-	   buit_in/mis_unset.c \
-	   buit_in/mis_exec.c \
-	   00_utils.c \
-	   01_utils.c \
+SRCS = executor/built_in/mis_cd.c \
+	   executor/built_in/mis_echo.c \
+	   executor/built_in/mis_env.c \
+	   executor/built_in/mis_exit.c \
+	   executor/built_in/mis_export.c \
+	   executor/built_in/mis_pwd.c \
+	   executor/built_in/mis_unset.c \
+	   executor/built_in/mis_exec.c \
+	   executor/utils/00_utils.c \
+	   executor/utils/01_utils.c \
 	   main.c
 OBJS = $(SRCS:.c=.o)
 
