@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:12 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/09 20:04:03 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/11 12:04:07 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	handle_input(char *input, t_minishell *shell)
 {
 	char		**args;
 	t_command	cmd;
+	char		**exp_args;
 
 	if (*input)
 	{
@@ -45,10 +46,17 @@ void	handle_input(char *input, t_minishell *shell)
 		args = ft_split(input, ' ');
 		if (args && args[0])
 		{
-			cmd.args = args;
-			cmd.next = NULL;
-			execute_command(&cmd, shell);
-			ft_free_array(args);
+			exp_args = expand_args(args, shell);
+			if (exp_args && exp_args[0])
+			{
+				cmd.args = exp_args;
+				cmd.next = NULL;
+				execute_command(&cmd, shell);
+				ft_free_array(exp_args);
+				ft_free_array(args);
+			}
+			else if (exp_args)
+				free(exp_args);
 		}
 		else if (args)
 			free(args);
@@ -91,6 +99,11 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		input = readline("minishell$ ");
+		if (!input)
+		{
+			printf("exit\n");
+			break ;
+		}
 		handle_input(input, &shell);
 		free(input);
 	}
