@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/11 12:02:11 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/14 16:26:22 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,27 @@ typedef struct s_checker
 {
 }								t_checker;
 
+typedef enum e_redirect_type
+{
+	REDIRECT_INPUT,
+	REDIRECT_OUTPUT,
+	REDIRECT_APPEND,
+	REDIRECT_HEREDOC
+}								t_redirect_type;
+
+typedef struct s_redir
+{
+	int							heredoc_fd;
+	t_redirect_type				type;
+	char						*filename;
+	struct s_redir				*next;
+}								t_redir;
+
 typedef struct s_command
 {
 	char						**args;
 	struct s_command			*next;
+	t_redir						*redirs;
 }								t_command;
 
 typedef struct s_minishell
