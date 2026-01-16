@@ -6,11 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:12 by jiyawang          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2026/01/11 12:04:07 by mhnatovs         ###   ########.fr       */
-=======
-/*   Updated: 2026/01/16 17:04:46 by mhnatovs         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2026/01/16 18:48:21 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
