@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/14 16:26:22 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/16 13:53:43 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ extern volatile sig_atomic_t	g_signal;
 typedef struct s_checker
 {
 }								t_checker;
+
+typedef struct s_saved_fd
+{
+	int stdin_backup;
+	int stdout_backup;
+}t_saved_fd;
 
 typedef enum e_redirect_type
 {
