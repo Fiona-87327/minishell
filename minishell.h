@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/17 19:48:13 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/17 20:41:21 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void							mis_env(t_command *cmd, t_minishell *shell);
 void							mis_export(t_command *cmd, t_minishell *shell);
 void							mis_unset(t_command *cmd, t_minishell *shell);
 void							mis_exec(t_command *cmd, t_minishell *shell);
-void							mis_exec_cmd(t_command *cmd, t_minishell *shell);
+void							mis_exec_cmd(t_command *cmd,
+									t_minishell *shell);
 void							mis_pipes(t_command *cmd, t_minishell *shell);
 void							mis_signal_handler(int sig);
 int								mis_check_signal_event(void);
@@ -121,11 +122,13 @@ void							token_add_back(t_token **lst, t_token *new);
 void							free_tokens(t_token *tokens);
 int								syntax_error(char *str);
 int								check_syntax(t_token *t);
-void							expand_cmds(t_command	*cmds, t_minishell *sh);
+void							expand_cmds(t_command *cmds, t_minishell *sh);
 char							*get_name_for_var(char *word, int *i);
 char							*expand_word(char *word, t_minishell *shell);
-void							handle_angle_brackets(char *str, t_token **tokens, int *i);
-void							command_add_back(t_command **lst, t_command *new);
+void							handle_angle_brackets(char *str,
+									t_token **tokens, int *i);
+void							command_add_back(t_command **lst,
+									t_command *new);
 t_command						*new_command(void);
 int								add_arg_to_cmd(t_command *cmd, char *word);
 char							*delete_quotes(char *str);
@@ -136,5 +139,6 @@ int								is_quote(char c);
 int								mis_redirections(t_redir *redir);
 void							process_heredocs(t_command *cmds);
 void							execute_with_pipes(t_command *cmds);
-
+t_saved_fd						save_fds(void);
+void							restore_fds(t_saved_fd saved);
 #endif

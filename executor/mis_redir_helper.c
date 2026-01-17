@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mis_redir_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:55:55 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/17 18:28:04 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/17 20:42:37 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#include "minishell.h"
 
 t_saved_fd	save_fds(void)
 {
