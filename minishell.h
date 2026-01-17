@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/17 15:09:19 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/17 17:40:39 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void							mis_env(t_command *cmd, t_minishell *shell);
 void							mis_export(t_command *cmd, t_minishell *shell);
 void							mis_unset(t_command *cmd, t_minishell *shell);
 void							mis_exec(t_command *cmd, t_minishell *shell);
+void							mis_exec_cmd(t_command *cmd, t_minishell *shell);
+void							mis_pipes(t_command *cmd, t_minishell *shell);
 void							mis_signal_handler(int sig);
 int								mis_check_signal_event(void);
 int								ft_arraylen(char **array);
@@ -133,5 +135,6 @@ int								check_quotes_balance(char *str);
 /* Redirections */
 int								mis_redirections(t_redir *redir);
 void							process_heredocs(t_command *cmds);
+void							execute_with_pipes(t_command *cmds);
 
 #endif

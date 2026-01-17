@@ -19,9 +19,10 @@ SRCS = executor/built_in/mis_cd.c \
 	   executor/utils/00_utils.c \
 	   executor/utils/01_utils.c \
 	   executor/mis_redirections.c \
+	   executor/mis_pipes.c \
 	   parsing/expansion.c \
-	   parsing/lexer_utils.c \
 	   parsing/lexer.c \
+	   parsing/lexer_utils.c \
 	   parsing/syntax_checker.c \
 	   parsing/parser.c \
 	   parsing/quotes.c \

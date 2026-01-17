@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:12 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/17 15:44:13 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/17 17:37:58 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,13 @@ void	handle_input(char *input, t_minishell *shell)
 	cmds = parse_tokens(tokens);
 	free_tokens(tokens);
 	if (cmds)
-	{
+	{	
 		process_heredocs(cmds);
 		expand_cmds(cmds, shell);
-		execute_command(cmds, shell);
+		if (cmds->next)
+			mis_pipes(cmds, shell);
+		else if (cmds->args && cmds->args[0])
+			execute_command(cmds, shell);
 		free_cmds(cmds);
 	}
 }
@@ -107,7 +110,6 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	signal(SIGINT, mis_signal_handler);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
 	rl_event_hook = mis_check_signal_event;
 	shell.env = dup_env(envp);
 	shell.exit_status = 0;
