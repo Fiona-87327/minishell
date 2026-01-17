@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/17 18:25:35 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/17 19:48:13 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ t_command						*new_command(void);
 int								add_arg_to_cmd(t_command *cmd, char *word);
 char							*delete_quotes(char *str);
 int								check_quotes_balance(char *str);
+int								is_quote(char c);
 
 /* Redirections */
 int								mis_redirections(t_redir *redir);
