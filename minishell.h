@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/17 20:41:21 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/17 20:56:23 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,6 @@ typedef struct s_token
 typedef struct s_checker
 {
 }								t_checker;
-
-typedef struct s_saved_fd
-{
-	int							stdin_backup;
-	int							stdout_backup;
-}								t_saved_fd;
 
 typedef enum e_redirect_type
 {
@@ -138,7 +132,8 @@ int								is_quote(char c);
 /* Redirections */
 int								mis_redirections(t_redir *redir);
 void							process_heredocs(t_command *cmds);
-void							execute_with_pipes(t_command *cmds);
-t_saved_fd						save_fds(void);
-void							restore_fds(t_saved_fd saved);
+void							execute_with_pipes(t_command *cmds); // Add a newline or keep it clean
+void							execute_child_command(t_command *cmd,
+									t_minishell *shell);
+
 #endif

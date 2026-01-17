@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mis_pipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 16:09:32 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/17 18:27:48 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/17 20:55:42 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,37 +66,7 @@ static void	setup_pipe_fds(int **pipes, int cmd_index, int num_commands)
 	close_pipes(pipes, num_commands - 1);
 }
 
-static void	execute_child_command(t_command *cmd, t_minishell *shell)
-{
-	if (ft_strncmp(cmd->args[0], "pwd", 4) == 0 || \
-		ft_strncmp(cmd->args[0], "echo", 5) == 0 || \
-		ft_strncmp(cmd->args[0], "cd", 3) == 0 || \
-		ft_strncmp(cmd->args[0], "env", 4) == 0 || \
-		ft_strncmp(cmd->args[0], "exit", 5) == 0 || \
-		ft_strncmp(cmd->args[0], "export", 7) == 0 || \
-		ft_strncmp(cmd->args[0], "unset", 6) == 0)
-	{
-		if (mis_redirections(cmd->redirs) == -1)
-			exit(1);
-		if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
-			mis_pwd(cmd, shell);
-		else if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
-			mis_echo(cmd, shell);
-		else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
-			mis_cd(cmd, shell);
-		else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
-			mis_env(cmd, shell);
-		else if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
-			mis_exit(cmd, shell);
-		else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
-			mis_export(cmd, shell);
-		else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
-			mis_unset(cmd, shell);
-		exit(shell->exit_status);
-	}
-	else
-		mis_exec_cmd(cmd, shell);
-}
+
 
 void	mis_pipes(t_command *cmd, t_minishell *shell)
 {
@@ -124,5 +94,4 @@ void	mis_pipes(t_command *cmd, t_minishell *shell)
 	close_pipes(pipes, num_commands - 1);
 	while (num_commands-- > 0)
 		wait(NULL);
-	// TODO: free pipes
 }

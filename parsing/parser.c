@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:44:22 by mhnatovs          #+#    #+#             */
-/*   Updated: 2026/01/17 18:30:56 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/17 20:53:32 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,9 @@ t_command	*new_command(void)
 {
 	t_command	*cmd;
 
-	cmd = malloc(sizeof(t_command));
+	cmd = ft_calloc(1, sizeof(t_command));
 	if (!cmd)
 		return (NULL);
-	cmd->args = NULL;
-	cmd->next = NULL;
-	cmd->redirs = NULL;
 	return (cmd);
 }
 

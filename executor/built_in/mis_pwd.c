@@ -14,11 +14,14 @@
 
 void	mis_pwd(t_command *cmd, t_minishell *shell)
 {
-	char	cwd[PATH_MAX];
+	char	*cwd;
 
 	(void)cmd;
 	(void)shell;
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	cwd = malloc(sizeof(char) * PATH_MAX);
+	if (!cwd)
+		return ;
+	if (getcwd(cwd, PATH_MAX) != NULL)
 	{
 		ft_putstr_fd(cwd, STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
@@ -28,4 +31,5 @@ void	mis_pwd(t_command *cmd, t_minishell *shell)
 		ft_putstr_fd("pwd: error retrieving current directory\n",
 			STDERR_FILENO);
 	}
+	free(cwd);
 }
