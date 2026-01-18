@@ -20,11 +20,13 @@ SRCS = executor/built_in/mis_cd.c \
 	   executor/utils/01_utils.c \
 	   executor/mis_redirections.c \
 	   executor/mis_pipes_helper.c \
+	   executor/mis_execute_cmd.c \
 	   executor/mis_pipes.c \
 	   parsing/expansion.c \
 	   parsing/lexer.c \
 	   parsing/lexer_utils.c \
 	   parsing/syntax_checker.c \
+	   parsing/mis_input_handle.c \
 	   parsing/parser.c \
 	   parsing/quotes.c \
 	   parsing/mis_heredoc.c \
@@ -68,4 +70,4 @@ re: fclean all
 valgrind v: $(NAME)
 	valgrind --leak-check=full  --show-leak-kinds=all --track-fds=yes --suppressions=sub.sub  ./minishell
 
-.PHONY: all clean fclean re c f
+.PHONY: all clean fclean re c f v
