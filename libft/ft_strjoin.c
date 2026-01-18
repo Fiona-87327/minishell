@@ -6,15 +6,11 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:49:46 by jiyawang          #+#    #+#             */
-/*   Updated: 2025/07/21 09:49:40 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/18 08:14:26 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-size_t	ft_strlen(const char *str);
-size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-size_t	ft_strlcat(char *dest, const char *src, size_t size);
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -40,5 +36,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 //     char *s2 ="**";
 
 //     printf("%s", ft_strjoin(s1, s2));
-//     return 0;
+//     return (0);
 // }

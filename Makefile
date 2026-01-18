@@ -64,3 +64,8 @@ fclean f: clean
 	@echo "$(R)[FCLEAN]$(NC) $(NAME) has been deleted!"
 
 re: fclean all
+
+valgrind v: $(NAME)
+	valgrind --leak-check=full  --show-leak-kinds=all --track-fds=yes --suppressions=sub.sub  ./minishell
+
+.PHONY: all clean fclean re c f

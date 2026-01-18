@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:01:07 by mhnatovs          #+#    #+#             */
-/*   Updated: 2026/01/17 19:38:20 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/18 08:27:50 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static char	*get_env_from_shell(char *name, t_minishell *shell)
 {
-	int		i;
-	int		len;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = ft_strlen(name);
@@ -55,15 +55,16 @@ char	*get_name_for_var(char *word, int *i)
 
 char	*expand_word(char *word, t_minishell *shell)
 {
-	int	i;
+	int			i;
+	t_quotes	quote;
+	char		*res;
+	char		*temp;
+	char		*var_name;
+	char		*value;
 
-	t_quotes quote = NOT_IN_QUOTES;
-	char *res = ft_strdup("");
-	char *temp;
-	char *var_name;
-	char *value;
+	quote = NOT_IN_QUOTES;
+	res = ft_strdup("");
 	i = 0;
-
 	while (word[i])
 	{
 		if (word[i] == '\'' && quote != IN_DOUBLE_QUOTES)
@@ -79,7 +80,7 @@ char	*expand_word(char *word, t_minishell *shell)
 		}
 		else if (word[i] == '"' && quote != IN_SINGLE_QUOTES)
 		{
-			if(quote == IN_DOUBLE_QUOTES)
+			if (quote == IN_DOUBLE_QUOTES)
 				quote = NOT_IN_QUOTES;
 			else
 				quote = IN_DOUBLE_QUOTES;
