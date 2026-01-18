@@ -1,0 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mis_input_hanlde.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/18 13:08:14 by jiyawang          #+#    #+#             */
+/*   Updated: 2026/01/18 13:08:27 by jiyawang         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+static int	validate_input(char *input, t_token **tokens, t_minishell *shell)
+{
+	if (check_quotes_balance(input))
+	{
+		syntax_error("unclosed quotes");
+		return (-1);
+	}
+	*tokens = tokenize(input);
+	if (!*tokens || check_syntax(*tokens))
+	{
+		shell->exit_status = 2;
+		free_tokens(*tokens);
+		return (-1);
+	}
+	return (0);
+}
+
+static void	process_and_executor(t_command *cmds, t_minishell *shell)
+{
+	process_heredocs(cmds);
+	expand_cmds(cmds, shell);
+	if (cmds->next)
+		mis_pipes(cmds, shell);
+	else if (cmds->args && cmds->args[0])
+		execute_command(cmds, shell);
+}
+
+void	handle_input(char *input, t_minishell *shell)
+{
+	t_token		*tokens;
+	t_command	*cmds;
+
+	if (!*input)
+		return ;
+	add_history(input);
+	if (validate_input(input, &tokens, shell) == -1)
+		return ;
+	cmds = parse_tokens(tokens);
+	free_tokens(tokens);
+	if (cmds)
+	{
+		process_and_executor(cmds, shell);
+		free_cmds(cmds);
+	}
+}
