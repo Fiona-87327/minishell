@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 15:02:44 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/19 15:32:12 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:46:04 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include "minishell.h"
 # include "parser.h"
+
+typedef enum e_redirect_type	t_redirect_type;
+typedef enum e_quotes			t_quotes;
+typedef struct s_token			t_token;
 
 typedef enum e_redirect_type
 {

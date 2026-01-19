@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 15:27:04 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/19 15:31:02 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:46:55 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_token
 	struct s_token				*next;
 }								t_token;
 
-/* Parser */
 t_token							*tokenize(char *str);
 t_command						*parse_tokens(t_token *t);
 t_token							*add_new_tok(char *value, t_token_type type);

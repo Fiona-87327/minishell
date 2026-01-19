@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/19 15:32:31 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:43:29 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ typedef struct s_redir			t_redir;
 typedef enum e_redirect_type	t_redirect_type;
 typedef enum e_token_type		t_token_type;
 typedef enum e_quotes			t_quotes;
+typedef struct s_token			t_token;
 
 #endif
