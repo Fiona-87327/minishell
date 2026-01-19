@@ -1,5 +1,7 @@
 minishell
 out
+test
+.sh
 *.o
 *.a
 *.so

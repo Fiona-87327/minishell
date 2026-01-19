@@ -6,13 +6,11 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:12 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/18 14:14:32 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/19 17:21:01 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-volatile sig_atomic_t	g_signal = 0;
 
 static char	**dup_env(char **envp)
 {
