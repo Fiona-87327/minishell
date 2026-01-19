@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mis_signal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 14:39:25 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/17 18:26:14 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:51:19 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+volatile sig_atomic_t	g_signal = 0;
 
 void	mis_signal_handler(int sig)
 {
