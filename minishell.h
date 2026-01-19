@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/18 17:04:09 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/19 16:58:48 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,15 @@ t_redir							*add_redir_define_type(t_token_type type);
 int								add_redir(t_command *cmd, t_token_type type,
 									char *filename);
 int								handle_redir(t_command *cmd, t_token *token);
+char							*append_char(char *res, char c);
+int								handle_quotes(char c, t_quotes *quote);
+char							*append_str(char *res, char *str);
+char							*dollar_expan(char *word, t_minishell *sh,
+									int *i, char *res);
+char							*get_env_from_shell(char *name,
+									t_minishell *shell);
+char							*get_shell_status(t_minishell *sh,
+									int *i, char *res);
 
 /* Redirections */
 int								mis_redirections(t_redir *redir);
