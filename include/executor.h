@@ -1,56 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/15 10:47:15 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/18 08:40:09 by jiyawang         ###   ########.fr       */
+/*   Created: 2026/01/19 15:02:44 by jiyawang          #+#    #+#             */
+/*   Updated: 2026/01/19 15:32:12 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef EXECUTOR_H
+# define EXECUTOR_H
 
-# include "libft/libft.h"
-# include <errno.h>
-# include <fcntl.h>
-# include <limits.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <signal.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <unistd.h>
-
-extern volatile sig_atomic_t	g_signal;
-
-typedef enum e_token_type
-{
-	WORD,
-	PIPE,
-	REDIR_IN,
-	REDIR_OUT,
-	REDIR_APPEND,
-	HEREDOC
-}								t_token_type;
-
-typedef enum e_quotes
-{
-	NOT_IN_QUOTES,
-	IN_SINGLE_QUOTES,
-	IN_DOUBLE_QUOTES
-}								t_quotes;
-
-typedef struct s_token
-{
-	char						*value;
-	t_token_type				type;
-	struct s_token				*next;
-}								t_token;
+# include "minishell.h"
+# include "parser.h"
 
 typedef enum e_redirect_type
 {
@@ -104,27 +68,6 @@ char							*get_var_name(char *arg);
 char							*get_env_value(char **env, char *key);
 void							add_to_env(t_minishell *shell, char *arg);
 char							**expand_args(char **args, t_minishell *shell);
-
-/* Parsing */
-t_token							*tokenize(char *str);
-t_command						*parse_tokens(t_token *t);
-t_token							*add_new_tok(char *value, t_token_type type);
-void							token_add_back(t_token **lst, t_token *new);
-void							free_tokens(t_token *tokens);
-int								syntax_error(char *str);
-int								check_syntax(t_token *t);
-void							expand_cmds(t_command *cmds, t_minishell *sh);
-char							*get_name_for_var(char *word, int *i);
-char							*expand_word(char *word, t_minishell *shell);
-void							handle_angle_brackets(char *str,
-									t_token **tokens, int *i);
-void							command_add_back(t_command **lst,
-									t_command *new);
-t_command						*new_command(void);
-int								add_arg_to_cmd(t_command *cmd, char *word);
-char							*delete_quotes(char *str);
-int								check_quotes_balance(char *str);
-int								is_quote(char c);
 
 /* Redirections */
 int								mis_redirections(t_redir *redir);

@@ -22,14 +22,14 @@ SRCS = executor/built_in/mis_cd.c \
 	   executor/mis_pipes_helper.c \
 	   executor/mis_execute_cmd.c \
 	   executor/mis_pipes.c \
-	   parsing/expansion.c \
-	   parsing/lexer.c \
-	   parsing/lexer_utils.c \
-	   parsing/syntax_checker.c \
-	   parsing/mis_input_handle.c \
-	   parsing/parser.c \
-	   parsing/quotes.c \
-	   parsing/mis_heredoc.c \
+	   parser/expansion.c \
+	   parser/lexer.c \
+	   parser/lexer_utils.c \
+	   parser/syntax_checker.c \
+	   parser/mis_input_handle.c \
+	   parser/parser.c \
+	   parser/quotes.c \
+	   parser/mis_heredoc.c \
 	   signal/mis_signal.c \
 	   main.c
 OBJS = $(SRCS:.c=.o)
@@ -38,7 +38,7 @@ LIBFT_DIR = libft
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-INCLUDES = -I $(CURDIR) -I $(CURDIR)/$(LIBFT_DIR)
+INCLUDES = -I $(CURDIR)/include -I $(CURDIR) -I $(CURDIR)/$(LIBFT_DIR)
 
 all: $(NAME)
 	@echo "$(G)[SUCCESS]$(NC) minishell compiled!"
