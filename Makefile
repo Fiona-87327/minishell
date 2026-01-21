@@ -21,13 +21,13 @@ SRCS = executor/built_in/mis_cd.c \
 	   executor/mis_redirections.c \
 	   executor/mis_pipes_helper.c \
 	   executor/mis_execute_cmd.c \
+	   executor/mis_input_handle.c \
 	   executor/mis_pipes.c \
 	   parser/expansion_utils.c \
 	   parser/expansion.c \
 	   parser/lexer_utils.c \
 	   parser/lexer.c \
 	   parser/mis_heredoc.c \
-	   parser/mis_input_handle.c \
 	   parser/parser_utils.c \
 	   parser/parser.c \
 	   parser/quotes.c \
