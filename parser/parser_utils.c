@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 16:58:29 by mhnatovs          #+#    #+#             */
-/*   Updated: 2026/01/18 17:02:40 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/21 18:09:07 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include "minishell.h"
 
 t_command	*new_command(void)
 {
@@ -24,8 +24,8 @@ t_command	*new_command(void)
 
 int	is_redir(t_token_type type)
 {
-	return (type == REDIR_OUT || type == REDIR_APPEND
-		|| type == REDIR_IN || type == HEREDOC);
+	return (type == REDIR_OUT || type == REDIR_APPEND || type == REDIR_IN
+		|| type == HEREDOC);
 }
 
 t_redir	*add_redir_define_type(t_token_type type)
