@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 19:51:46 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/21 11:36:17 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/21 13:17:46 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,23 @@ void	mis_pwd(t_command *cmd, t_minishell *shell)
 {
 	char	*cwd;
 
-	(void)cmd;
-	cwd = malloc(sizeof(char) * PATH_MAX);
-	if (!cwd)
+	if (cmd->args[1] && cmd->args[1][0] == '-')
+	{
+		ft_putstr_fd("pwd: bad option: ", STDERR_FILENO);
+		ft_putstr_fd(cmd->args[1], STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
+		shell->exit_status = 2;
 		return ;
-	if (getcwd(cwd, PATH_MAX) != NULL)
-	{
-		ft_putstr_fd(cwd, STDOUT_FILENO);
-		ft_putchar_fd('\n', STDOUT_FILENO);
-		shell->exit_status = 0;
 	}
-	else
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
 	{
-		ft_putstr_fd("pwd: error retrieving current directory\n",
-			STDERR_FILENO);
+		perror("pwd");
 		shell->exit_status = 1;
+		return ;
 	}
+	ft_putstr_fd(cwd, STDOUT_FILENO);
+	ft_putchar_fd('\n', STDOUT_FILENO);
 	free(cwd);
+	shell->exit_status = 0;
 }
