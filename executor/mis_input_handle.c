@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mis_input_handle.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 13:08:14 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/21 13:00:42 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/22 11:43:56 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	validate_input(char *input, t_token **tokens, t_minishell *shell)
 
 static void	process_and_executor(t_command *cmds, t_minishell *shell)
 {
-	process_heredocs(cmds);
+	process_heredocs(cmds, shell);
 	expand_cmds(cmds, shell);
 	if (cmds->next)
 		mis_pipes(cmds, shell);

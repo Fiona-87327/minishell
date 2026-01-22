@@ -3,20 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   mis_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:35:00 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/17 18:29:59 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/22 11:58:36 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	read_heredoc(char *delimiter)
+static void	handle_heredoc_line(char *line, int fd, t_minishell *shell,
+		int quoted)
+{
+	char	*expanded_line;
+
+	if (!quoted)
+		expanded_line = expand_word(line, shell);
+	else
+		expanded_line = ft_strdup(line);
+	ft_putendl_fd(expanded_line, fd);
+	free(expanded_line);
+}
+
+static int	read_heredoc(const char *delimiter, t_minishell *shell)
 {
 	int		fd[2];
 	char	*line;
+	int		quoted;
 
+	quoted = is_quote(delimiter[0]);
 	if (pipe(fd) == -1)
 		return (-1);
 	while (1)
@@ -29,14 +44,13 @@ static int	read_heredoc(char *delimiter)
 			free(line);
 			break ;
 		}
-		ft_putendl_fd(line, fd[1]);
+		handle_heredoc_line(line, fd[1], shell, quoted);
 		free(line);
 	}
-	close(fd[1]);
-	return (fd[0]);
+	return (close(fd[1]), (fd[0]));
 }
 
-void	process_heredocs(t_command *cmds)
+void	process_heredocs(t_command *cmds, t_minishell *shell)
 {
 	t_command	*cmd;
 	t_redir		*redir;
@@ -48,7 +62,7 @@ void	process_heredocs(t_command *cmds)
 		while (redir)
 		{
 			if (redir->type == REDIRECT_HEREDOC)
-				redir->heredoc_fd = read_heredoc(redir->filename);
+				redir->heredoc_fd = read_heredoc(redir->filename, shell);
 			redir = redir->next;
 		}
 		cmd = cmd->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 15:02:44 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/19 17:59:56 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/22 11:46:29 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ char							**expand_args(char **args, t_minishell *shell);
 
 /* Redirections */
 int								mis_redirections(t_redir *redir);
-void							process_heredocs(t_command *cmds);
+void							process_heredocs(t_command *cmds,
+									t_minishell *shell);
 void							execute_with_pipes(t_command *cmds);
 void							execute_child_command(t_command *cmd,
 									t_minishell *shell);
