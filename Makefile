@@ -34,6 +34,7 @@ SRCS = executor/built_in/mis_cd.c \
 	   parser/quotes.c \
 	   parser/syntax_checker.c \
 	   signal/mis_signal.c \
+	   signal/setup_signal.c \
 	   main.c
 OBJS = $(SRCS:.c=.o)
 

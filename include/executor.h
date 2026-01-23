@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 15:02:44 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/23 16:19:00 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/23 17:20:47 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void							mis_exec(t_command *cmd, t_minishell *shell);
 void							mis_exec_cmd(t_command *cmd,
 									t_minishell *shell);
 void							mis_pipes(t_command *cmd, t_minishell *shell);
+void							setup_signal(void);
 void							mis_signal_handler(int sig);
 int								mis_check_signal_event(void);
 void							setchild_signals(void);
