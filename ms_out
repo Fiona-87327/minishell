@@ -1,3 +1,0 @@
-minishell$ echo hello | | wc
-minishell$ exit
-exit
