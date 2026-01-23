@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:30:00 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/23 16:18:41 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/23 20:05:41 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ static char	*get_path(char *cmd, char **envp)
 
 static void	handle_exec_error(char *cmd)
 {
+	if (errno == EACCES)
+	{
+		ft_putstr_fd("bash: ", STDERR_FILENO);
+		ft_putstr_fd(cmd, STDERR_FILENO);
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+		exit(126);
+	}
 	if (ft_strchr(cmd, '/'))
 	{
 		ft_putstr_fd("bash: ", STDERR_FILENO);
@@ -82,8 +89,7 @@ void	mis_exec_cmd(t_command *cmd, t_minishell *shell)
 	if (!path || access(path, F_OK) != 0)
 		handle_exec_error(cmd->args[0]);
 	execve(path, cmd->args, shell->env);
-	perror("execve");
-	exit(1);
+	handle_exec_error(path);
 }
 
 void	mis_exec(t_command *cmd, t_minishell *shell)
