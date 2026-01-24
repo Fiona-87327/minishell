@@ -8,6 +8,12 @@
 
 ## Instructions
 
+### Compilation
+To compile the project, run:
+```bash
+make
+```
+
 ## Resources
 
 - [GNU Bash Manual](https://www.gnu.org/software/bash/manual/bash.pdf)
