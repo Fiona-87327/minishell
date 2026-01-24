@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:30:00 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/23 20:05:41 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/24 13:03:07 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,18 @@ static char	*get_path(char *cmd, char **envp)
 
 static void	handle_exec_error(char *cmd)
 {
+	struct stat	path_stat;
+	int			is_dir;
+
+	is_dir = (stat(cmd, &path_stat) == 0 && S_ISDIR(path_stat.st_mode));
 	if (errno == EACCES)
 	{
-		ft_putstr_fd("bash: ", STDERR_FILENO);
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(cmd, STDERR_FILENO);
-		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+		if (is_dir)
+			ft_putstr_fd(": Is a directory\n", STDERR_FILENO);
+		else
+			ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
 		exit(126);
 	}
 	if (ft_strchr(cmd, '/'))
@@ -86,8 +93,12 @@ void	mis_exec_cmd(t_command *cmd, t_minishell *shell)
 		path = cmd->args[0];
 	else
 		path = get_path(cmd->args[0], shell->env);
-	if (!path || access(path, F_OK) != 0)
-		handle_exec_error(cmd->args[0]);
+	if (!path)
+	{
+		ft_putstr_fd(cmd->args[0], STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		exit(127);
+	}
 	execve(path, cmd->args, shell->env);
 	handle_exec_error(path);
 }
