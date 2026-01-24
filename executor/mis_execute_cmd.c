@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mis_execute_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 12:41:01 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/22 15:41:22 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/24 12:56:10 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,22 @@ static int	execute_redirs_cmd(t_command *cmd, t_minishell *shell)
 void	execute_command(t_command *cmd, t_minishell *shell)
 {
 	t_command	*cur;
+	int			all_empty;
 
+	all_empty = 1;
 	cur = cmd;
 	while (cur)
 	{
-		if (!cur->args || !cur->args[0])
+		if (cur->args && cur->args[0])
 		{
-			cur = cur->next;
-			continue ;
+			all_empty = 0;
+			if (cur->redirs)
+				execute_redirs_cmd(cur, shell);
+			else
+				execute_builtin_cmd(cur, shell);
 		}
-		if (cur->redirs)
-			execute_redirs_cmd(cur, shell);
-		else
-			execute_builtin_cmd(cur, shell);
 		cur = cur->next;
 	}
+	if (all_empty)
+		shell->exit_status = 0;
 }
