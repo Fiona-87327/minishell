@@ -7,16 +7,21 @@
 `minishell` is a simplified Unix shell built for educational purposes as part of the 42 curriculum. Its goal is to help students understand the fundamentals of command-line interpreters, process management, parsing, and I/O redirection. The project aims to replicate the core behavior of a shell, accepting user commands, executing them, handling errors, and managing environment variables.
 
 ## Instructions
+#### Installation
+Clone the repo:
+111bash
+git clone https://github.com/Fiona-87327/minishell.git
+```
 
 To compile the project, run:
 ```bash
 make
 ```
-To cleanup:
+To remove object files in obj directory:
 ```bash
 make clean
 ```
-or
+To remove everything including the executable:
 ```bash
 make fclean
 ```
@@ -24,6 +29,7 @@ To rebuild from scratch:
 ```bash
 make re
 ```
+
 ###### Use commands:
 ###### Builtins
 - echo (with -n)
