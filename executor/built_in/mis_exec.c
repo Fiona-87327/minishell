@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mis_exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:30:00 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/25 15:11:53 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/25 16:59:05 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,63 @@ static void	handle_exec_error(char *cmd)
 	exit(127);
 }
 
+// void	mis_exec_cmd(t_command *cmd, t_minishell *shell)
+// {
+// 	char	*path;
+// 	char	**actual_args;
+
+// 	if (!cmd || !cmd->args)
+// 		exit(0);
+// 	actual_args = cmd->args;
+// 	while (*actual_args && **actual_args == '\0')
+// 		actual_args++;
+// 	if (!*actual_args)
+// 		exit(0);
+// 	if (mis_redirections(cmd->redirs) == -1)
+// 		exit(1);
+// 	if (ft_strchr(*actual_args, '/'))
+// 		path = *actual_args;
+// 	else
+// 		path = get_path(*actual_args, shell->env);
+// 	if (!path)
+// 	{
+// 		ft_putstr_fd(*actual_args, 2);
+// 		ft_putstr_fd(": command not found\n", 2);
+// 		exit(127);
+// 	}
+// 	execve(path, actual_args, shell->env);
+// 	handle_exec_error(path);
+// }
+
 void	mis_exec_cmd(t_command *cmd, t_minishell *shell)
 {
-	char	*path;
-	char	**actual_args;
+	char		*path;
+	struct stat	st;
 
-	if (!cmd || !cmd->args)
-		exit(0);
-	actual_args = cmd->args;
-	while (*actual_args && **actual_args == '\0')
-		actual_args++;
-	if (!*actual_args)
+	if (!cmd || !cmd->args || !cmd->args[0])
 		exit(0);
 	if (mis_redirections(cmd->redirs) == -1)
 		exit(1);
-	if (ft_strchr(*actual_args, '/'))
-		path = *actual_args;
+	if (ft_strchr(cmd->args[0], '/'))
+	{
+		path = cmd->args[0];
+		if (stat(path, &st) == 0 && S_ISDIR(st.st_mode))
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(path, 2);
+			ft_putendl_fd(": Is a directory", 2);
+			exit(126);
+		}
+	}
 	else
-		path = get_path(*actual_args, shell->env);
+		path = get_path(cmd->args[0], shell->env);
 	if (!path)
 	{
-		ft_putstr_fd(*actual_args, 2);
-		ft_putstr_fd(": command not found\n", 2);
+		ft_putstr_fd(cmd->args[0], 2);
+		ft_putendl_fd(": command not found", 2);
 		exit(127);
 	}
-	execve(path, actual_args, shell->env);
+	execve(path, cmd->args, shell->env);
 	handle_exec_error(path);
 }
 
