@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_signal.c                                     :+:      :+:    :+:   */
+/*   mis_heredoc_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/23 17:22:28 by mhnatovs          #+#    #+#             */
-/*   Updated: 2026/01/26 20:26:50 by jiyawang         ###   ########.fr       */
+/*   Created: 2026/01/26 20:46:17 by jiyawang          #+#    #+#             */
+/*   Updated: 2026/01/26 20:47:13 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	setup_signal(void)
+int	heredoc_is_quoted(const char *delim)
 {
-	struct sigaction	sa_int;
-	struct sigaction	sa_quit;
-
-	sa_int.sa_handler = mis_signal_handler;
-	sigemptyset(&sa_int.sa_mask);
-	sa_int.sa_flags = 0;
-	sigaction(SIGINT, &sa_int, NULL);
-	sa_quit.sa_handler = SIG_IGN;
-	sigemptyset(&sa_quit.sa_mask);
-	sa_quit.sa_flags = 0;
-	sigaction(SIGQUIT, &sa_quit, NULL);
+	while (*delim)
+	{
+		if (*delim == '\'' || *delim == '"')
+			return (1);
+		delim++;
+	}
+	return (0);
 }
 
-void	check_ctrl_c(t_minishell *shell)
+int	heredoc_cleanup(char *line, char *delim, int *fd, int return_val)
 {
-	if (g_signal == SIGINT)
+	if (line)
+		free(line);
+	if (delim)
+		free(delim);
+	if (fd)
 	{
-		shell->exit_status = 130;
-		g_signal = 0;
+		close(fd[1]);
+		if (return_val == -1)
+			close(fd[0]);
 	}
+	return (return_val);
 }

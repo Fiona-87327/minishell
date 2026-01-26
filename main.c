@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:12 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/26 17:48:32 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/26 20:28:29 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ static char	**dup_env(char **envp)
 	}
 	new_env[i] = NULL;
 	return (new_env);
-}
-
-static void	check_ctrl_c(t_minishell *shell)
-{
-	if (g_signal == SIGINT)
-	{
-		shell->exit_status = 130;
-		g_signal = 0;
-	}
 }
 
 static char	*get_input(void)

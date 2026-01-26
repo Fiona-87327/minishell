@@ -17,6 +17,7 @@ SRCS = executor/built_in/mis_cd.c \
 	   executor/built_in/mis_pwd.c \
 	   executor/built_in/mis_unset.c \
 	   executor/built_in/mis_exec.c \
+	   executor/built_in/mis_exec_util.c \
 	   executor/utils/00_utils.c \
 	   executor/utils/env_utils.c \
 	   executor/mis_redirections.c \
@@ -29,6 +30,7 @@ SRCS = executor/built_in/mis_cd.c \
 	   parser/lexer_utils.c \
 	   parser/lexer.c \
 	   parser/mis_heredoc.c \
+	   parser/mis_heredoc_utils.c \
 	   parser/parser_utils.c \
 	   parser/parser.c \
 	   parser/quotes.c \

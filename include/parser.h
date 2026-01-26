@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 15:27:04 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/22 16:25:55 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/26 20:50:43 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ void							command_add_back(t_command **lst,
 									t_command *new);
 t_command						*new_command(void);
 int								add_arg_to_cmd(t_command *cmd, char *word);
+int								heredoc_is_quoted(const char *delim);
+int								heredoc_cleanup(char *line, char *delim,
+									int *fd, int return_val);
 char							*delete_quotes(char *str);
 int								check_quotes_balance(char *str);
 int								is_quote(char c);

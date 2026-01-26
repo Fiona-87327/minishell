@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:30:00 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/26 16:23:53 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/26 20:37:37 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,59 +39,6 @@ static char	*get_path(char *cmd, char **envp)
 		i++;
 	}
 	return (free_paths(paths), NULL);
-}
-
-static void	handle_exec_error(char *cmd)
-{
-	struct stat	st;
-
-	if (stat(cmd, &st) == 0 && S_ISDIR(st.st_mode))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": Is a directory\n", 2);
-		exit(126);
-	}
-	if (errno == EACCES)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": Permission denied\n", 2);
-		exit(126);
-	}
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
-	exit(127);
-}
-
-static void	check_directory(char *path)
-{
-	struct stat	st;
-
-	if ((ft_strcmp(path, ".") == 0 || ft_strcmp(path, "..") == 0))
-		return ;
-	if (ft_strchr(path, '/') && stat(path, &st) == 0 && S_ISDIR(st.st_mode))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putendl_fd(": Is a directory", 2);
-		exit(126);
-	}
-}
-
-static void	mis_exec_dot_error(void)
-{
-	ft_putstr_fd("minishell: .: filename argument required\n", 2);
-	ft_putstr_fd(".: usage: . filename [arguments]\n", 2);
-	exit(2);
-}
-
-static void	mis_exec_cmd_not_found(char *cmd)
-{
-	ft_putstr_fd(cmd, 2);
-	ft_putendl_fd(": command not found", 2);
-	exit(127);
 }
 
 static char	*mis_exec_get_path(t_command *cmd, t_minishell *shell)
