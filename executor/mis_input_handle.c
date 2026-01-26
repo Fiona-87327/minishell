@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mis_input_handle.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 13:08:14 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/26 18:53:28 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:54:42 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	handle_input(char *input, t_minishell *shell)
 		return ;
 	if (!*input)
 		return ;
-	// add_history(input);
 	if (validate_input(input, &tokens, shell) == -1)
 	{
 		if (g_signal != SIGINT)
