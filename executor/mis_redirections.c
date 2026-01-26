@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 15:29:00 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/26 19:54:20 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:57:35 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,11 @@ static int	redirect_intput(t_redir *redir)
 static int	redirect_heredoc(t_redir *redir)
 {
 	if (redir->heredoc_fd < 0)
+	{
+		perror("heredoc");
 		return (-1);
-	if (dup2(redir->heredoc_fd, STDIN_FILENO) == -1)
-		return (-1);
+	}
+	dup2(redir->heredoc_fd, STDIN_FILENO);
 	close(redir->heredoc_fd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 14:39:25 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/26 19:40:02 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:58:35 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,7 @@ volatile sig_atomic_t	g_signal = 0;
 
 void	mis_signal_handler(int sig)
 {
-	if (sig == SIGINT)
-	{
-		g_signal = SIGINT;
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
+	g_signal = sig;
 }
 
 int	mis_check_signal_event(void)
