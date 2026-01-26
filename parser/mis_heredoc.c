@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mis_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:35:00 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/26 12:11:47 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/26 18:25:20 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,15 @@ static int	read_heredoc(const char *delimiter, t_minishell *shell)
 	{
 		line = get_heredoc_line();
 		if (!line)
+		{
+			if (isatty(STDIN_FILENO))
+			{
+				ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted `", STDERR_FILENO);
+				ft_putstr_fd(clean_delim, STDERR_FILENO);
+				ft_putstr_fd("')\n", STDERR_FILENO);
+			}
 			break ;
+		}
 		if (ft_strncmp(line, clean_delim, ft_strlen(clean_delim) + 1) == 0)
 		{
 			free(line);
