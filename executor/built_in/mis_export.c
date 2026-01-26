@@ -6,11 +6,33 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 19:53:02 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/24 15:11:33 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/26 18:57:32 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	print_sorted_env(char **env)
+{
+	int		i;
+	char	*eq_pos;
+
+	i = 0;
+	while (env[i])
+	{
+		eq_pos = ft_strchr(env[i], '=');
+		if (eq_pos && eq_pos[1])
+		{
+			printf("declare -x %.*s=\"%s\"\n", (int)(eq_pos - env[i]), env[i],
+				eq_pos + 1);
+		}
+		else
+		{
+			printf("declare -x %s\n", env[i]);
+		}
+		i++;
+	}
+}
 
 static int	is_valid_identifier(char *str)
 {
@@ -26,18 +48,6 @@ static int	is_valid_identifier(char *str)
 		i++;
 	}
 	return (1);
-}
-
-static void	print_sorted_env(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		printf("declare -x %s\n", env[i]);
-		i++;
-	}
 }
 
 void	mis_export(t_command *cmd, t_minishell *shell)

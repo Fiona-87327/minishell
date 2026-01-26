@@ -6,7 +6,7 @@
 /*   By: jiyawang <jiyawang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:35:00 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/26 12:11:47 by jiyawang         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:39:33 by jiyawang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,29 +56,57 @@ static int	read_heredoc(const char *delimiter, t_minishell *shell)
 	int		fd[2];
 	char	*line;
 	char	*clean_delim;
-	int		quoted;
 
-	quoted = heredoc_is_quoted(delimiter);
 	clean_delim = delete_quotes((char *)delimiter);
 	if (pipe(fd) == -1)
 		return (free(clean_delim), -1);
 	while (1)
 	{
 		line = get_heredoc_line();
+		if (g_signal == SIGINT)
+		{
+			free(line);
+			free(clean_delim);
+			close(fd[1]);
+			close(fd[0]);
+			return (-1);
+		}
 		if (!line)
+		{
+			ft_putstr_fd("minishell: warning: heredoc delimited by EOF\n", 2);
 			break ;
+		}
 		if (ft_strncmp(line, clean_delim, ft_strlen(clean_delim) + 1) == 0)
 		{
 			free(line);
 			break ;
 		}
-		handle_heredoc_line(line, fd[1], shell, quoted);
+		handle_heredoc_line(line, fd[1], shell, heredoc_is_quoted(delimiter));
 		free(line);
 	}
 	free(clean_delim);
 	close(fd[1]);
 	return (fd[0]);
 }
+
+// void	process_heredocs(t_command *cmds, t_minishell *shell)
+// {
+// 	t_command	*cmd;
+// 	t_redir		*redir;
+
+// 	cmd = cmds;
+// 	while (cmd)
+// 	{
+// 		redir = cmd->redirs;
+// 		while (redir)
+// 		{
+// 			if (redir->type == REDIRECT_HEREDOC)
+// 				redir->heredoc_fd = read_heredoc(redir->filename, shell);
+// 			redir = redir->next;
+// 		}
+// 		cmd = cmd->next;
+// 	}
+// }
 
 void	process_heredocs(t_command *cmds, t_minishell *shell)
 {
@@ -92,7 +120,15 @@ void	process_heredocs(t_command *cmds, t_minishell *shell)
 		while (redir)
 		{
 			if (redir->type == REDIRECT_HEREDOC)
+			{
+				g_signal = 0;
 				redir->heredoc_fd = read_heredoc(redir->filename, shell);
+				if (redir->heredoc_fd == -1)
+				{
+					shell->exit_status = 130;
+					return ;
+				}
+			}
 			redir = redir->next;
 		}
 		cmd = cmd->next;
