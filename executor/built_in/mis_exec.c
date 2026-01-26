@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:30:00 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/26 17:15:33 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:15:35 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*get_path(char *cmd, char **envp)
 		part_path = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(part_path, cmd);
 		free(part_path);
-		if (access(path, F_OK) == 0)
+		if (access(path, X_OK) == 0)
 			return (free_paths(paths), path);
 		free(path);
 		i++;
@@ -89,9 +89,11 @@ static void	mis_exec_dot_error(void)
 
 static void	mis_exec_cmd_not_found(char *cmd)
 {
-	ft_putstr_fd(cmd, 2);
-	ft_putendl_fd(": command not found", 2);
-	exit(127);
+	ft_putstr_fd("minishell: ", 2);
+ft_putstr_fd(cmd, 2);
+ft_putendl_fd(": command not found", 2);
+exit(127);
+
 }
 
 static char	*mis_exec_get_path(t_command *cmd, t_minishell *shell)
