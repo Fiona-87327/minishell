@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 14:39:25 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/23 12:47:20 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:05:02 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ volatile sig_atomic_t	g_signal = 0;
 
 void	mis_signal_handler(int sig)
 {
-	g_signal = sig;
-}
-
-int	mis_check_signal_event(void)
-{
-	if (g_signal == SIGINT)
+	if (sig == SIGINT)
 	{
+		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		rl_done = 1;
-		return (1);
 	}
-	return (0);
+}
+
+void	heredoc_sigint(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	exit(130);
 }
 
 void	setchild_signals(void)

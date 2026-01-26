@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:12 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/25 13:45:25 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:09:36 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ static char	**dup_env(char **envp)
 	}
 	new_env[i] = NULL;
 	return (new_env);
-}
-
-static void	check_ctrl_c(t_minishell *shell)
-{
-	if (g_signal == SIGINT)
-	{
-		shell->exit_status = 130;
-		g_signal = 0;
-	}
 }
 
 static char	*get_input(void)
@@ -71,7 +62,6 @@ void	minishell_loop(t_minishell *shell)
 
 	while (1)
 	{
-		check_ctrl_c(shell);
 		if (shell->should_exit)
 			break ;
 		input = get_input();
@@ -101,7 +91,6 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	setup_signal();
-	rl_event_hook = mis_check_signal_event;
 	shell.env = dup_env(envp);
 	shell.exit_status = 0;
 	shell.should_exit = 0;
