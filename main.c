@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:19:12 by jiyawang          #+#    #+#             */
-/*   Updated: 2026/01/25 13:45:25 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:46:25 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int	main(int ac, char **av, char **envp)
 	setup_signal();
 	rl_event_hook = mis_check_signal_event;
 	shell.env = dup_env(envp);
+	if (!shell.env || !shell.env[0])
+		shell.env = init_min_env();
 	shell.exit_status = 0;
 	shell.should_exit = 0;
 	minishell_loop(&shell);
